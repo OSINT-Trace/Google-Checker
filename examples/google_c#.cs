@@ -3,13 +3,15 @@ var client = new HttpClient();
 var request = new HttpRequestMessage
 {
 	Method = HttpMethod.Post,
-	RequestUri = new Uri("https://google-checker2.p.rapidapi.com/check_bulk"),
-	Headers =
+	// API.Market URL: https://prod.api.market/api/v1/osint-trace-1/google-checker/check/google
+RequestUri = new Uri("https://google-checker2.p.rapidapi.com/check"),
+	// API.Market Header: X-Api-Key: YOUR_API_KEY
+Headers =
 	{
 		{ "x-rapidapi-key", "Sign Up for Key" },
 		{ "x-rapidapi-host", "google-checker2.p.rapidapi.com" },
 	},
-	Content = new StringContent("{\"input\":[\"test@gmail.com\",\"john@doe.com\"]}")
+	Content = new StringContent("{\"input\":\"test@example.com\"}")
 	{
 		Headers =
 		{

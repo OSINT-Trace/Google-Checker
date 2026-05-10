@@ -1,6 +1,6 @@
 # Google Account Checker API
 
-[![RapidAPI Badge](https://img.shields.io/badge/Available%20on-RapidAPI-black?style=for-the-badge&logo=rapidapi)](https://rapidapi.com/osint-org-osint-org-default/api/google-checker2)
+[![Available on](https://img.shields.io/badge/Available%20on-gray?style=for-the-badge)](#) [![API.Market](https://img.shields.io/badge/API.Market-8B5CF6?style=for-the-badge)](https://api.market/store/osint-trace-1/google-checker) [![RapidAPI](https://img.shields.io/badge/RapidAPI-black?style=for-the-badge&logo=rapidapi)](https://rapidapi.com/osint-org-osint-org-default/api/google-checker2)
 
 A lightweight API to verify Google account existence by username or email.
 
@@ -9,8 +9,7 @@ A lightweight API to verify Google account existence by username or email.
 - [Getting Started](#getting-started)
 - [API Endpoints](#api-endpoints)
   - [Single Account Check](#single-account-check)
-  - [Bulk Account Check](#bulk-account-check)
-- [Response Format](#response-format)
+  - [Response Format](#response-format)
 - [Requirements](#requirements)
 - [Pricing](#pricing)
 - [Support](#support)
@@ -19,20 +18,26 @@ A lightweight API to verify Google account existence by username or email.
 ## Features
 
 ✅ Single account verification  
-✅ Bulk check up to 10 accounts at once  
 ✅ Supports emails and usernames  
 ✅ Fast JSON responses  
 ✅ Enterprise-grade reliability  
 
 ## Getting Started
 1. **Get API Key**
-   - Subscribe via [RapidAPI Hub](https://rapidapi.com/osint-org-osint-org-default/api/google-checker2)
-   - Get your `X-RapidAPI-Key` from your dashboard
+   - Subscribe via your preferred marketplace: [API.Market](https://api.market/store/osint-trace-1/google-checker) or [RapidAPI Hub](https://rapidapi.com/osint-org-osint-org-default/api/google-checker2)
+   - Get your API Key from your dashboard
 
-2. **Base URL**
-```text
-https://google-checker2.p.rapidapi.com
-```
+2. **Base URL & Authentication**
+   The Base URL and authentication headers depend on the marketplace you use:
+
+   **API.Market:**
+   - Base URL: `https://prod.api.market/api/v1/osint-trace-1/google-checker`
+   - Header: `X-Api-Key`
+
+   **RapidAPI:**
+   - Base URL: `https://google-checker2.p.rapidapi.com`
+   - Headers: `X-RapidAPI-Host: google-checker2.p.rapidapi.com` and `X-RapidAPI-Key`
+
 ## API Endpoints
 ### Single Account Check
 
@@ -46,7 +51,23 @@ https://google-checker2.p.rapidapi.com
 }
 ```
 
-**cURL Example**
+**Examples**
+
+<details>
+<summary><b>API.Market (cURL)</b></summary>
+
+```bash
+curl --request POST \
+     --url https://prod.api.market/api/v1/osint-trace-1/google-checker/check/google \
+     --header 'X-Api-Key: YOUR_API_KEY' \
+     --header 'Content-Type: application/json' \
+     --data '{"input": "test@example.com"}'
+```
+</details>
+
+<details>
+<summary><b>RapidAPI (cURL)</b></summary>
+
 ```bash
 curl --request POST \
      --url https://google-checker2.p.rapidapi.com/check \
@@ -55,34 +76,7 @@ curl --request POST \
      --header 'Content-Type: application/json' \
      --data '{"input": "test@example.com"}'
 ```
-### Bulk Account Check
-**Endpoint**  
-> POST /check_bulk
-
-**Request**
-```json
-{
-    "input": [
-        "test@example.com",
-        "googleuser123"
-    ]
-}
-```
-**Python Example**
-```python
-import requests
-
-url = "https://google-checker2.p.rapidapi.com/check_bulk"
-payload = {"input": ["test@example.com", "googleuser123"]}
-headers = {
-    "X-RapidAPI-Key": "YOUR_API_KEY",
-    "X-RapidAPI-Host": "google-checker2.p.rapidapi.com",
-    "Content-Type": "application/json"
-}
-
-response = requests.post(url, json=payload, headers=headers)
-print(response.json())
-```
+</details>
 
 ## Response Format
 **Successful Response**
@@ -92,34 +86,19 @@ print(response.json())
   "note": ""
 }
 ```
-**Bulk Response**
-```json
-[
-  {
-    "live": true,
-    "identifier": "john@doe.com",
-    "note": ""
-  },
-  {
-    "live": true,
-    "identifier": "jane@doe.com",
-    "note": ""
-  }
-]
-```
+
 _note=suspended if the account were suspended_  
 
 ## Requirements
 - Minimum input length: 3 characters
 
-- Bulk requests limited to 10 items per call
 
 - Valid input types:
   - Email addresses
   - Usernames
  
 ## Pricing
-Flexible plans available through [RapidAPI](https://rapidapi.com/osint-org-osint-org-default/api/google-checker2/pricing).   
+Flexible plans available through [API.Market](https://api.market/store/osint-trace-1/google-checker) or [RapidAPI](https://rapidapi.com/osint-org-osint-org-default/api/google-checker2/pricing).   
 Free tier available for testing and low-volume usage.
 
 ## Support
