@@ -1,11 +1,18 @@
 #!/usr/bin/env bash
 
-# Primary (Recommended): OSINT Trace Direct API
+# Verify by email or username
 curl --request POST \
   --url https://api.osinttrace.com/v1/check/google \
   --header 'x-osint-key: YOUR_OSINT_KEY' \
   --header 'Content-Type: application/json' \
   --data '{"input":"test@gmail.com"}'
+
+# Or verify by phone number (E.164 format)
+# curl --request POST \
+#   --url https://api.osinttrace.com/v1/check/google \
+#   --header 'x-osint-key: YOUR_OSINT_KEY' \
+#   --header 'Content-Type: application/json' \
+#   --data '{"input":"+14155552671"}'
 
 # Alternative (API.Market):
 # curl --request POST \

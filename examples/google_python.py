@@ -15,6 +15,7 @@ headers = {
 # url = "https://google-checker2.p.rapidapi.com/check"
 # headers = {"x-rapidapi-key": "YOUR_RAPIDAPI_KEY", "x-rapidapi-host": "google-checker2.p.rapidapi.com", "Content-Type": "application/json"}
 
+# Supports email address ("target@gmail.com"), username ("john_doe"), or E.164 phone ("+14155552671")
 payload = {"input": "test@gmail.com"}
 
 response = requests.post(url, json=payload, headers=headers)

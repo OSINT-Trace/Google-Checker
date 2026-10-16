@@ -2,7 +2,7 @@
 
 [![OSINT Trace - Direct API (Recommended)](https://img.shields.io/badge/OSINT%20Trace-Direct%20API%20(Recommended)-00DF9A?style=for-the-badge&logo=shield)](https://osinttrace.com) [![API.Market](https://img.shields.io/badge/API.Market-8B5CF6?style=for-the-badge)](https://api.market/store/osint-trace-1/google-checker) [![RapidAPI](https://img.shields.io/badge/RapidAPI-black?style=for-the-badge&logo=rapidapi)](https://rapidapi.com/osint-org-osint-org-default/api/google-checker2)
 
-A lightweight, enterprise-grade OSINT API to verify Google account existence, deliverability status, and diagnostic state (active vs. suspended, consumer Gmail vs. Google Workspace custom domain mailboxes) by email address or username.
+A lightweight, enterprise-grade OSINT API to verify Google account existence, deliverability status, and diagnostic state (active vs. suspended, consumer Gmail vs. Google Workspace custom domain mailboxes) by email address, username, or phone number.
 
 ## Table of Contents
 - [Features](#features)
@@ -24,9 +24,11 @@ A lightweight, enterprise-grade OSINT API to verify Google account existence, de
 ## Features
 
 ✅ **Instant Verification**: Real-time presence verification for Google Accounts and Gmail mailboxes.  
+✅ **Multi-Identifier Support**: Query by email address, username handle, or E.164 international phone number.  
 ✅ **Domain & Workspace Support**: Works seamlessly across `@gmail.com` and custom Google Workspace domains.  
 ✅ **Diagnostic Status & Deliverability**: Flags suspended, disabled, or security-restricted accounts in the `note` field.  
-✅ **High Performance**: Asynchronous architecture with high-speed proxy cycling.  
+✅ **Profile Metadata Extraction**: On phone number checks, retrieves account presence, formatted display name, profile avatar URL, and custom avatar status.  
+✅ **High Performance**: Asynchronous architecture with high-speed proxy cycling and warm worker daemons.  
 ✅ **Developer-Friendly**: Available via direct REST API on [OSINT Trace](https://osinttrace.com) (Recommended) and major developer marketplaces.
 
 ---
@@ -58,10 +60,17 @@ Authentication headers and endpoints vary by provider:
 **Endpoint (OSINT Trace Direct - Recommended):**
 > `POST https://api.osinttrace.com/v1/check/google`
 
-**Request Body:**
+**Request Body (Email or Username):**
 ```json
 {
   "input": "target@gmail.com"
+}
+```
+
+**Request Body (Phone Number):**
+```json
+{
+  "input": "+14155552671"
 }
 ```
 
@@ -71,11 +80,19 @@ Authentication headers and endpoints vary by provider:
 <summary><b>OSINT Trace Direct API (cURL) — Recommended</b></summary>
 
 ```bash
+# Verify by Email or Username
 curl --request POST \
      --url https://api.osinttrace.com/v1/check/google \
      --header 'x-osint-key: YOUR_OSINT_KEY' \
      --header 'Content-Type: application/json' \
      --data '{"input": "target@gmail.com"}'
+
+# Verify by Phone Number (E.164 format)
+curl --request POST \
+     --url https://api.osinttrace.com/v1/check/google \
+     --header 'x-osint-key: YOUR_OSINT_KEY' \
+     --header 'Content-Type: application/json' \
+     --data '{"input": "+14155552671"}'
 ```
 </details>
 
@@ -87,7 +104,7 @@ curl --request POST \
      --url https://prod.api.market/api/v1/osint-trace-1/google-checker/check/google \
      --header 'X-Api-Key: YOUR_API_KEY' \
      --header 'Content-Type: application/json' \
-     --data '{"input": "target@gmail.com"}'
+     --data '{"input": "+14155552671"}'
 ```
 </details>
 
@@ -100,7 +117,7 @@ curl --request POST \
      --header 'X-RapidAPI-Host: google-checker2.p.rapidapi.com' \
      --header 'X-RapidAPI-Key: YOUR_API_KEY' \
      --header 'Content-Type: application/json' \
-     --data '{"input": "target@gmail.com"}'
+     --data '{"input": "+14155552671"}'
 ```
 </details>
 
@@ -110,11 +127,24 @@ curl --request POST \
 
 ## Response Format
 
-### Active Account Found
+### Active Account Found (Email / Username)
 ```json
 {
   "live": true,
   "note": null
+}
+```
+
+### Active Account Found by Phone (with Metadata)
+```json
+{
+  "live": true,
+  "note": "",
+  "metadata": {
+    "name": "+1 415 555 2671",
+    "avatar_url": "https://lh3.googleusercontent.com/a/ACg8oc...",
+    "has_custom_avatar": false
+  }
 }
 ```
 
@@ -155,6 +185,7 @@ curl --request POST \
 - **Supported input formats**:
   - Email addresses (`user@gmail.com`, `user@custom-workspace-domain.com`)
   - Usernames (`john_doe`)
+  - Phone numbers in international standard E.164 format (`+14155552671`, `+212612423061`)
 - **Rate Limit**: 1 request per second per active API key.
 
 ---
