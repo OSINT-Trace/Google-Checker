@@ -4,7 +4,12 @@
 
 A lightweight, enterprise-grade OSINT API to verify Google account existence, deliverability status, and diagnostic state (active vs. suspended, consumer Gmail vs. Google Workspace custom domain mailboxes) by email address, username, or phone number.
 
-## Table of Contents
+> ⚠️ **Metadata Availability & Privacy Notice**:
+> Extracted metadata is **conditional and never guaranteed**. Availability strictly depends on:
+> 1. **Input Type & Enrichment Mode**: By default, email address queries return fast existence verification (`live: true/false`) and deliverability diagnostics (`note: "suspended"`). On OSINT Trace direct calls with `enrich: true`, deep profile metadata (GAIA account ID, Google Workspace tenant ID, organization, job title, and bio) is retrieved. Phone number lookups retrieve display name and avatar photo if made public by the user.
+> 2. **Platform & Privacy Settings**: Target accounts that restrict public discoverability or enterprise domains enforcing strict SAML / SSO policies may omit profile attributes.
+
+---
 - [Features](#features)
 - [Getting Started](#getting-started)
   - [1. Get API Key](#1-get-api-key)
